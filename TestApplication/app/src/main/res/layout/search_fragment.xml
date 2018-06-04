@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="viewModel" type="com.example.ijuin.testapplication.viewmodels.SearchViewModel"/>
+        <variable name="mainViewModel" type="com.example.ijuin.testapplication.viewmodels.MainViewModel"/>
+        <variable name="activity" type="com.example.ijuin.testapplication.views.MainActivity"/>
+        <import type="android.view.View"/>
+    </data>
+    <LinearLayout android:id="@+id/searchFragment1"
+        android:background="@{mainViewModel.backgroundColor}"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.example.ijuin.testapplication.views.MainActivity$SearchFragment"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/select_target_gender_text"
+            android:textSize="25sp"
+            android:fontFamily="@font/roboto_bold_condensed_italic"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_popup"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/theme"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="vertical">
+
+            <android.support.percent.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/thelightfont"
+                    app:layout_marginLeftPercent="10%"
+                    android:textColor="#DB4C2C"
+                    android:textStyle="bold"
+                    app:layout_marginTopPercent="3%"
+                    app:layout_marginBottomPercent="3%"
+                    android:text="@string/male"/>
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_marginLeftPercent="80%"
+                    app:layout_marginTopPercent="3%"
+                    app:layout_marginBottomPercent="3%"
+                    android:textColorHint="#ff0000"
+                    android:checked="@={viewModel.isFindingMale}"/>
+            </android.support.percent.PercentRelativeLayout>
+
+
+            <android.support.percent.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:fontFamily="@font/thelightfont"
+                    android:id="@+id/txtFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    app:layout_marginLeftPercent="10%"
+                    android:textColor="#DB4C2C"
+                    android:text="@string/female"
+                    android:textStyle="bold"
+                    app:layout_marginBottomPercent="3%"/>
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_marginLeftPercent="80%"
+                    app:layout_marginBottomPercent="3%"
+                    android:shadowColor="@color/YELLOW"
+                    android:checked="@={viewModel.isFindingFemale}"/>
+            </android.support.percent.PercentRelativeLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:background="@drawable/theme"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+
+            <android.support.percent.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/txtAddRange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/agerange"
+                    app:layout_marginStartPercent="5%"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:textColor="#DB4C2C"/>
+
+                <TextView
+                    android:id="@+id/txtAgeMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{`` + viewModel.minAge}"
+                    android:layout_toEndOf="@id/txtAddRange"
+                    app:layout_marginStartPercent="50%"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/BLACK"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/txtConnect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:layout_toEndOf="@id/txtAddRange"
+                    android:textStyle="bold"
+                    android:textColor="@color/BLACK"
+                    app:layout_marginStartPercent="55%"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/txtAgeMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/txtAddRange"
+                    android:text="@{`` + viewModel.maxAge}"
+                    android:textColor="@color/BLACK"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    app:layout_marginStartPercent="57%"/>
+
+            </android.support.percent.PercentRelativeLayout>
+
+            <com.crystal.crystalrangeseekbar.widgets.BubbleThumbRangeSeekbar
+                android:id="@+id/rangeSeekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bar_color="@color/SILVER"
+                app:bar_highlight_color="@color/CRIMSON"
+                app:left_thumb_color="@color/CRIMSON"
+                app:left_thumb_color_pressed="@color/CRIMSON"
+                app:right_thumb_color="@color/CRIMSON"
+                app:right_thumb_color_pressed="@color/CRIMSON"
+                android:layout_marginTop="10dp"
+                app:data_type="_integer"
+                app:min_value="18"
+                app:max_value="60"/>
+        </LinearLayout>
+
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:indicatorName="BallSpinFadeLoaderIndicator"
+            app:indicatorColor="@color/AQUA"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:visibility='@{viewModel.finding ? View.VISIBLE: View.GONE}'/>
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btnSearch"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/theme1"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            fancy:fb_borderColor="#FFFFFF"
+            fancy:fb_borderWidth="1dp"
+            fancy:fb_defaultColor="#7ab800"
+            fancy:fb_focusColor="#9bd823"
+            fancy:fb_radius="30dp"
+            fancy:fb_text="@string/search"
+            fancy:fb_textColor="#FFFFFF"
+            android:onClick="@{() -> viewModel.findPartner()}"/>
+
+
+
+    </LinearLayout>
+</layout>

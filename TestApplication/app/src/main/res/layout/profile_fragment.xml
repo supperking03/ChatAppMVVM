@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="viewModel" type="com.example.ijuin.testapplication.viewmodels.ProfileViewModel"/>
+        <variable name="mainViewModel" type="com.example.ijuin.testapplication.viewmodels.MainViewModel"/>
+        <variable name="activity" type="com.example.ijuin.testapplication.views.MainActivity"/>
+        <import type="android.view.View"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@{mainViewModel.backgroundColor}">
+
+
+        <LinearLayout
+            android:id="@+id/profileFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linear_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_UserIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="100dp"
+                    android:minHeight="100dp"
+                    android:maxWidth="100dp"
+                    android:maxHeight="100dp"
+                    app:profile_image_url="@{viewModel.user.imageUrl.value}"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/take_picture"
+                    android:layout_marginStart="20dp"
+                    android:onClick="@{() -> viewModel.TakePicture()}"/>
+
+                <Button
+                    android:id="@+id/btn_ChangeUserImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/select_picture"
+                    android:onClick="@{() -> viewModel.Change()}"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/isPublic"
+                        android:textStyle="bold|italic"
+                        android:layout_marginEnd="10dp"/>
+                </LinearLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtView_userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:layout_marginStartPercent="2%"
+                        android:padding="10dp"
+                        android:text="@string/userName"
+                        android:textSize="@dimen/fontsize" />
+
+                    <EditText
+                        android:id="@+id/edtText_userName"
+                        android:layout_width="@dimen/widthContent"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col2"
+                        android:hint="@string/hintUserName"
+                        android:text="@={viewModel.user.displayName.value}"
+                        android:textSize="@dimen/fontsize" />
+
+                    <CheckBox
+                        android:id="@+id/cBox_userName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col3"
+                        android:layout_marginTop="8dp"
+                        android:checked="@={viewModel.user.displayName.isPublic}" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/userAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtView_userAge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:layout_marginStartPercent="@dimen/marginStart_col1"
+                        android:padding="10dp"
+                        android:text="@string/userAge"
+                        android:textSize="@dimen/fontsize" />
+
+                    <EditText
+                        android:id="@+id/edtText_userAge"
+                        android:layout_width="@dimen/widthContent"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col2"
+                        android:inputType="number"
+                        android:text="@={`` + viewModel.user.yearBorn.value}"
+                        android:textSize="@dimen/fontsize" />
+
+                    <CheckBox
+                        android:id="@+id/cBox_userAge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col3"
+                        android:layout_marginTop="8dp"
+                        android:checked="@={viewModel.user.yearBorn.isPublic}" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/userGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtView_userGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:layout_marginStartPercent="@dimen/marginStart_col1"
+                        android:padding="10dp"
+                        android:text="@string/userGender"
+                        android:textSize="@dimen/fontsize" />
+
+                    <RadioGroup
+                        android:id="@+id/rGr_userGender"
+                        android:layout_width="@dimen/widthContent"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col2"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/txtView_Male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/male"
+                            android:textSize="@dimen/fontsize"
+                            android:layout_marginStart="5dp"/>
+
+                        <RadioButton
+                            android:id="@+id/rBtn_Male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={viewModel.user.gender.value}" />
+
+                        <TextView
+                            android:id="@+id/txtView_Female"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:text="@string/female"
+                            android:textSize="@dimen/fontsize" />
+
+                        <RadioButton
+                            android:id="@+id/rBtn_Female"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="@={!viewModel.user.gender.value}" />
+                    </RadioGroup>
+
+                    <CheckBox
+                        android:id="@+id/cBox_userGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col3"
+                        android:layout_marginTop="10dp"
+                        android:checked="@={viewModel.user.gender.isPublic}" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/userPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtView_userPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:layout_marginStartPercent="2%"
+                        android:padding="10dp"
+                        android:text="@string/userPhone"
+                        android:textSize="@dimen/fontsize" />
+
+                    <EditText
+                        android:id="@+id/edtText_userPhone"
+                        android:layout_width="@dimen/widthContent"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col2"
+                        android:ems="10"
+                        android:hint="@string/hintPhone"
+                        android:inputType="phone"
+                        android:text="@={viewModel.user.phoneNumber.value}"
+                        android:textSize="@dimen/fontsize" />
+
+                    <CheckBox
+                        android:id="@+id/cBox_userPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col3"
+                        android:layout_marginTop="10dp"
+                        android:checked="@={viewModel.user.phoneNumber.isPublic}" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/userAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtView_userAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:layout_marginStartPercent="2%"
+                        android:padding="10dp"
+                        android:text="@string/userAddress"
+                        android:textSize="@dimen/fontsize" />
+
+                    <EditText
+                        android:id="@+id/edtText_userAddress"
+                        android:layout_width="@dimen/widthContent"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col2"
+                        android:hint="@string/hintAddress"
+                        android:text="@={viewModel.user.address.value}"
+                        android:textSize="@dimen/fontsize" />
+
+                    <CheckBox
+                        android:id="@+id/cBox_userAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col3"
+                        android:layout_marginTop="10dp"
+                        android:checked="@={viewModel.user.address.isPublic}" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/userCompany"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtView_userCompany"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:layout_marginStartPercent="2%"
+                        android:padding="10dp"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/userCompany"
+                        android:textSize="@dimen/fontsize" />
+
+                    <EditText
+                        android:id="@+id/edtText_userCompany"
+                        android:layout_width="@dimen/widthContent"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col2"
+                        android:hint="@string/hintCompany"
+                        android:text="@={viewModel.user.job.value}"
+                        android:textSize="@dimen/fontsize" />
+
+                    <CheckBox
+                        android:id="@+id/cBox_userCompany"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col3"
+                        android:layout_marginTop="10dp"
+                        android:checked="@={viewModel.user.job.isPublic}" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/userCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtView_userCity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:layout_marginStartPercent="2%"
+                        android:padding="10dp"
+                        android:text="@string/userCity"
+                        android:textSize="@dimen/fontsize" />
+
+                    <EditText
+                        android:id="@+id/edtText_userCity"
+                        android:layout_width="@dimen/widthContent"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col2"
+                        android:hint="@string/hintCity"
+                        android:text="@={viewModel.user.city.value}"
+                        android:textSize="@dimen/fontsize" />
+
+                    <CheckBox
+                        android:id="@+id/cBox_userCity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col3"
+                        android:layout_marginTop="10dp"
+                        android:checked="@={viewModel.user.city.isPublic}" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/userCountry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtView_userCountry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:layout_marginStartPercent="@dimen/marginStart_col1"
+                        android:padding="10dp"
+                        android:text="@string/userCountry"
+                        android:textSize="@dimen/fontsize" />
+
+                    <EditText
+                        android:id="@+id/edtText_userCountry"
+                        android:layout_width="@dimen/widthContent"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col2"
+                        android:hint="@string/hintCountry"
+                        android:text="@={viewModel.user.country.value}"
+                        android:textSize="@dimen/fontsize" />
+
+                    <CheckBox
+                        android:id="@+id/cBox_userCountry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col3"
+                        android:layout_marginTop="10dp"
+                        android:checked="@={viewModel.user.country.isPublic}" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/userWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtView_userWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:layout_marginStartPercent="@dimen/marginStart_col1"
+                        android:padding="10dp"
+                        android:text="@string/userWeight"
+                        android:textSize="@dimen/fontsize" />
+
+                    <EditText
+                        android:id="@+id/edtText_userWeight"
+                        android:layout_width="@dimen/widthContent"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col2"
+                        android:hint="@string/hintWeight"
+                        android:inputType="numberDecimal"
+                        android:text="@={`` + viewModel.user.weight.value}"
+                        android:textSize="@dimen/fontsize" />
+
+                    <CheckBox
+                        android:id="@+id/cBox_userWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col3"
+                        android:layout_marginTop="10dp"
+                        android:checked="@={viewModel.user.weight.isPublic}" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/userHeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtView_userHeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:layout_marginStartPercent="@dimen/marginStart_col1"
+                        android:padding="10dp"
+                        android:text="@string/userHeight"
+                        android:textSize="@dimen/fontsize" />
+
+                    <EditText
+                        android:id="@+id/edtText_userHeight"
+                        android:layout_width="@dimen/widthContent"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col2"
+                        android:hint="@string/hintHeight"
+                        android:inputType="numberDecimal"
+                        android:text="@={`` + viewModel.user.height.value}"
+                        android:textSize="@dimen/fontsize" />
+
+                    <CheckBox
+                        android:id="@+id/cBox_userHeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col3"
+                        android:layout_marginTop="10dp"
+                        android:checked="@={viewModel.user.height.isPublic}" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/userFacebook"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtView_userFacebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:layout_marginStartPercent="@dimen/marginStart_col1"
+                        android:padding="10dp"
+                        android:text="@string/userFacebook"
+                        android:textSize="@dimen/fontsize" />
+
+                    <TextView
+                        android:id="@+id/edtText_userFacebook"
+                        android:layout_width="@dimen/widthContent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        app:layout_marginStartPercent="@dimen/marginStart_col2"
+                        android:hint="@string/hintFacebook"
+                        android:text="@={viewModel.user.facebook.value}"
+                        android:textSize="@dimen/fontsize"
+                        android:autoLink="web"
+                        android:focusable="true"
+                        android:clickable="true"/>
+
+                    <CheckBox
+                        android:id="@+id/cBox_userFacebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col3"
+                        android:layout_marginTop="10dp"
+                        android:checked="@={viewModel.user.facebook.isPublic}" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/userTwitter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtView_userTwitter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:layout_marginStartPercent="@dimen/marginStart_col1"
+                        android:padding="10dp"
+                        android:text="@string/userTwitter"
+                        android:textSize="@dimen/fontsize" />
+
+                    <TextView
+                        android:id="@+id/edtText_userTwitter"
+                        android:layout_width="@dimen/widthContent"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col2"
+                        android:hint="@string/hintTwitter"
+                        android:text="@={viewModel.user.twitter.value}"
+                        android:textSize="@dimen/fontsize"
+                        android:autoLink="web"
+                        android:focusable="true"
+                        android:clickable="true"/>
+
+                    <CheckBox
+                        android:id="@+id/cBox_userTwitter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_marginStartPercent="@dimen/marginStart_col3"
+                        android:layout_marginTop="10dp"
+                        android:checked="@={viewModel.user.twitter.isPublic}" />
+                </android.support.percent.PercentRelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <mehdi.sakout.fancybuttons.FancyButton
+                        android:id="@+id/btn_LogOut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:onClick="@{() -> viewModel.LogOut()}"
+                        android:text="@string/logout"
+                        android:background="@drawable/theme_btn_profile"
+                        android:backgroundTint="@color/TWITTER"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        fancy:fb_radius="30dp"
+                        />
+
+                    <mehdi.sakout.fancybuttons.FancyButton
+                        android:id="@+id/btn_Save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/theme_btn_profile"
+                        android:backgroundTint="@color/TWITTER"
+                        android:onClick="@{() -> viewModel.Save()}"
+                        android:text="@string/save"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="20dp"
+                        fancy:fb_radius="30dp"
+                        />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout >
+    </ScrollView>
+</layout>
